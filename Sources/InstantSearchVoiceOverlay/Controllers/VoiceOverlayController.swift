@@ -108,8 +108,6 @@ public typealias RecordableHandler = () -> Recordable
             self?.inputViewController = nil
             if retry {
                 self?.showRecordingScreen(view)
-            } else {
-                self?.dismissHandler?()
             }
         }
         
