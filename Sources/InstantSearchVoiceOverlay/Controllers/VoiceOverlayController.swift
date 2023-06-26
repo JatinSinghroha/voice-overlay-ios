@@ -61,7 +61,7 @@ public typealias RecordableHandler = () -> Recordable
     
     @objc public func dismiss() {
         self.inputViewController?.dismiss(animated: true, completion: nil)
-        self.dismissHandler?()
+        self?.dismissHandler?()
     }
     
     fileprivate func checkPermissionsAndRedirectToCorrectScreen(_ view: UIViewController) {
