@@ -115,21 +115,21 @@ public typealias SpeechErrorHandler = (Error?) -> Void
       errorHandler(err)
       return
     }
-    
-    do {
-        try speechTask = speechRecognizer.recognitionTask(with: speechRequest!) { (result, error) in
-            if let r = result {
-                let transcription = r.bestTranscription
-                let isFinal = r.isFinal
-                textHandler(transcription.formattedString, isFinal, nil)
-            } else {
-                errorHandler(error)
-            }
-        }
-    } catch let err {
-        errorHandler(err)
-        return
-    }
+      
+      guard let speechRequest = speechRequest else {
+          errorHandler(MyError(msg: "speech request is nil"))
+          return
+      }
+
+      speechTask = speechRecognizer.recognitionTask(with: speechRequest) { (result, error) in
+          if let r = result {
+              let transcription = r.bestTranscription
+              let isFinal = r.isFinal
+              textHandler(transcription.formattedString, isFinal, nil)
+          } else {
+              errorHandler(error)
+          }
+      }
   }
   
   /// Method which will stop the recording
@@ -149,4 +149,15 @@ public typealias SpeechErrorHandler = (Error?) -> Void
     stopRecording()
   }
   
+}
+
+public struct MyError: Error {
+    let msg: String
+
+}
+
+extension MyError: LocalizedError {
+    public var errorDescription: String? {
+            return NSLocalizedString(msg, comment: "")
+    }
 }
