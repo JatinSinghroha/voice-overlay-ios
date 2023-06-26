@@ -104,12 +104,9 @@ class InputViewController: UIViewController {
   }
   
   @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
-    self.delegate = nil
-    self.speechTextHandler = nil
-    self.speechErrorHandler = nil
-    self.speechResultScreenHandler = nil
+    self.speechTextHandler?("", true, nil)
     speechController?.stopRecording()
-    dismissMe(animated: true) {
+    dismissMe(animated: false) {
       self.dismissHandler?(false)
     }
   }
