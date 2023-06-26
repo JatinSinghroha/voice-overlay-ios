@@ -116,14 +116,19 @@ public typealias SpeechErrorHandler = (Error?) -> Void
       return
     }
     
-    speechTask = speechRecognizer.recognitionTask(with: speechRequest!) { (result, error) in
-      if let r = result {
-        let transcription = r.bestTranscription
-        let isFinal = r.isFinal
-        textHandler(transcription.formattedString, isFinal, nil)
-      } else {
-        errorHandler(error)
-      }
+    do {
+        try speechTask = speechRecognizer.recognitionTask(with: speechRequest!) { (result, error) in
+            if let r = result {
+                let transcription = r.bestTranscription
+                let isFinal = r.isFinal
+                textHandler(transcription.formattedString, isFinal, nil)
+            } else {
+                errorHandler(error)
+            }
+        }
+    } catch let err {
+        errorHandler(err)
+        return
     }
   }
   
