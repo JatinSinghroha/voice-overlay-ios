@@ -103,6 +103,8 @@ public typealias SpeechErrorHandler = (Error?) -> Void
     
     speechRequest = SFSpeechAudioBufferRecognitionRequest()
     
+      node.removeTap(onBus: 0)
+
     node.installTap(onBus: 0,
                     bufferSize: SpeechController.AUDIO_BUFFER_SIZE,
                     format: recordingFormat) { [weak self] (buffer, _) in
