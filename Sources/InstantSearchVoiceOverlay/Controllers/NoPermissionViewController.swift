@@ -65,13 +65,12 @@ public class NoPermissionViewController: UIViewController {
     }
     
     @objc func doneWithSettingsTapped() {
-        dismissMe(animated: true) {
+        dismissMe(animated: false) {
             self.dismissHandler?()
         }
     }
     
     @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
-        dismissMe(animated: true)
+        dismissMe(animated: false)
     }
-    
 }
