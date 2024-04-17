@@ -73,13 +73,13 @@ class PermissionViewController: UIViewController {
     }
     
     @objc func rejectMicrophoneTapped() {
-        dismissMe(animated: false) {
+        dismissMe(animated: true) {
           self.dismissHandler?(true)
         }
     }
     
     @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
-        dismissMe(animated: false) {
+        dismissMe(animated: true) {
           self.dismissHandler?(false)
         }
     }
