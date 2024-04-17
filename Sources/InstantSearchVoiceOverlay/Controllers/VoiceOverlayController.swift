@@ -78,6 +78,8 @@ public typealias RecordableHandler = () -> Recordable
   fileprivate func showPermissionScreen(_ view: UIViewController) {
     permissionViewController.permissionControllers = permissionControllers.filter { $0.status == .undetermined }
     permissionViewController.constants = settings.layout.permissionScreen
+    permissionViewController.modalPresentationStyle = .overCurrentContext
+
     DispatchQueue.main.async {
       view.present(self.permissionViewController, animated: true)
     }
@@ -85,6 +87,8 @@ public typealias RecordableHandler = () -> Recordable
 
   fileprivate func showNoPermissionScreen(_ view: UIViewController) {
     noPermissionViewController.constants = settings.layout.noPermissionScreen
+    noPermissionViewController.modalPresentationStyle = .overCurrentContext
+
     DispatchQueue.main.async {
       view.present(self.noPermissionViewController, animated: true)
     }

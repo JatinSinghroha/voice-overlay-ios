@@ -65,12 +65,16 @@ public class NoPermissionViewController: UIViewController {
     }
     
     @objc func doneWithSettingsTapped() {
-        dismissMe(animated: false) {
-            self.dismissHandler?()
-        }
+//        DispatchQueue.main.async {
+            self.dismissMe(animated: false) {
+                self.dismissHandler?()
+            }
+//        }
     }
     
     @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
-        dismissMe(animated: false)
+//        DispatchQueue.main.async {
+            self.dismissMe(animated: false)
+//        }
     }
 }
