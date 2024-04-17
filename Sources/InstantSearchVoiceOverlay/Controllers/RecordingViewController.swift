@@ -95,13 +95,21 @@ class InputViewController: UIViewController {
     self.view.layoutIfNeeded()
   }
   
-  @objc func recordingButtonTapped() {
-    if isRecording {
-      speechController?.stopRecording()
-    } else {
-      toggleRecording(recordingButton)
+    @objc func recordingButtonTapped() {
+        if isRecording {
+            if let speechText = self.speechText {
+                self.speechTextHandler?(speechText, true, self.customData)
+            } else {
+                self.speechTextHandler?("", true, nil)
+            }
+            speechController?.stopRecording()
+            dismissMe(animated: false) {
+                self.dismissHandler?(false)
+            }
+        } else {
+            toggleRecording(recordingButton)
+        }
     }
-  }
   
   @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
     self.speechTextHandler?("", true, nil)
