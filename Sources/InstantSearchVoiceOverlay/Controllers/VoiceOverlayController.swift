@@ -48,12 +48,23 @@ public typealias RecordableHandler = () -> Recordable
     
     checkPermissionsAndRedirectToCorrectScreen(view)
 
-    permissionViewController.dismissHandler = { [weak self] in
-      self?.checkPermissionsAndRedirectToCorrectScreen(view)
+      permissionViewController.dismissHandler = { _ in
+          
+      }
+    permissionViewController.dismissHandler = { [weak self] shouldRedirect in
+        if shouldRedirect {
+            self?.checkPermissionsAndRedirectToCorrectScreen(view)
+        } else {
+            self?.dismiss()
+        }
     }
 
-    noPermissionViewController.dismissHandler = { [weak self] in
-      self?.checkPermissionsAndRedirectToCorrectScreen(view)
+    noPermissionViewController.dismissHandler = { [weak self] shouldRedirect in
+        if shouldRedirect {
+            self?.checkPermissionsAndRedirectToCorrectScreen(view)
+        } else {
+            self?.dismiss()
+        }  
     }
   }
 

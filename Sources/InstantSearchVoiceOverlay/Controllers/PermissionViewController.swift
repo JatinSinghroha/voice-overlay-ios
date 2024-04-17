@@ -11,7 +11,7 @@ import UIKit
 @available(iOS 10.0, *)
 class PermissionViewController: UIViewController {
     
-    var dismissHandler: (() -> ())? = nil
+    var dismissHandler: ((Bool) -> ())? = nil
   
     var constants: PermissionScreenConstants!
     let titleLabel = UILabel()
@@ -52,7 +52,7 @@ class PermissionViewController: UIViewController {
           switch status {
           case .denied, .undetermined:
             self?.dismissMe(animated: true) {
-              self?.dismissHandler?()
+              self?.dismissHandler?(false)
             }
           case .granted:
             self?.allowMicrophoneTapped()
@@ -60,7 +60,7 @@ class PermissionViewController: UIViewController {
         }
       } else {
         dismissMe(animated: true) { [weak self] in
-          self?.dismissHandler?()
+          self?.dismissHandler?(false)
         }
       }
     }
@@ -73,11 +73,15 @@ class PermissionViewController: UIViewController {
     }
     
     @objc func rejectMicrophoneTapped() {
-        dismissMe(animated: false)
+        dismissMe(animated: false) {
+          self.dismissHandler?(true)
+        }
     }
     
     @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
-        dismissMe(animated: false)
+        dismissMe(animated: false) {
+          self.dismissHandler?(false)
+        }
     }
 
 }

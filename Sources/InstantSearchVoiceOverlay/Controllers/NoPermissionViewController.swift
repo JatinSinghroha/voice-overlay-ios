@@ -11,7 +11,7 @@ import UIKit
 @available(iOS 10.0, *)
 public class NoPermissionViewController: UIViewController {
     
-    var dismissHandler: (() -> ())? = nil
+    var dismissHandler: ((Bool) -> ())? = nil
     var constants: NoPermissionScreenConstants!
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
@@ -65,17 +65,14 @@ public class NoPermissionViewController: UIViewController {
     }
     
     @objc func doneWithSettingsTapped() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false)
-//            self.dismissMe(animated: false) {
-//                self.dismissHandler?()
-//            }
+        dismissMe(animated: false) {
+          self.dismissHandler?(true)
         }
     }
     
     @objc func closeButtonTapped(_ sender: UITapGestureRecognizer) {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false)
+        dismissMe(animated: false) {
+          self.dismissHandler?(false)
         }
     }
 }
