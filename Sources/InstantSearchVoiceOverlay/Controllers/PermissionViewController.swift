@@ -60,7 +60,7 @@ class PermissionViewController: UIViewController {
         }
       } else {
         dismissMe(animated: true) { [weak self] in
-          self?.dismissHandler?(false)
+          self?.dismissHandler?(true)
         }
       }
     }
